@@ -1,4 +1,6 @@
 # PWC Power Bi Virtual Experience - Call Center Data Set Analysis
+![image](https://github.com/pnjambi/PowerBi/assets/113362256/237ef5be-fab3-42a3-b13b-26483d00d062)
+
 ## Problem Statement 
 ### KPI’S Requirement
 Total number of calls over a specified period
@@ -15,11 +17,16 @@ The data cleaning and transformation was done in Excel using advanced power quer
 -Removal of unnecessary columns and rows
 -Data type; Changed date type with locale
 ### Creating New Measures using DAX
-Date table; DateDim = CALENDAR(MIN('Call Center_Call Center'[Call Timestamp]),MAX('Call Center_Call Center'[Call Timestamp]))
-
+Date table; DateDim = $ CALENDAR(MIN('Call Center_Call Center'[Call Timestamp]),MAX('Call Center_Call Center'[Call Timestamp]))$
 Day of the week; Day =FORMAT(DateDim[Date],"ddd")
-
 Day No = WEEKDAY(DateDim[Date],2)
+
+TotalCalls = COUNT('Call Center_Call Center'[Id])
+TotalCallDuration(Min) = SUM('Call Center_Call Center'[Call Duration In Minutes])
+TotalCallDuration(Hrs) = [TotalCallDuration(Min)]/60
+Average call duration in minutes; AvgCallDuration(Min) = AVERAGE('Call Center_Call Center'[Call Duration In Minutes])
+Response Time % = CALCULATE([TotalCalls],'Call Center_Call Center'[Response Time] ="Within SLA"|| 'Call Center_Call Center'[Response Time] = "Above SLA")/[TotalCalls]
+
 ### Data Modelling 
 <img width="595" alt="image" src="https://github.com/pnjambi/PowerBi/assets/113362256/5c12837e-ccf9-47df-9f77-137739a2e56a">
 
